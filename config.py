@@ -10,4 +10,38 @@ DEBUG = True
 
 
 # TODO IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = '<Put your local database url>'
+# DONE IMPLEMENT DATABASE URL
+
+
+class Config(object):
+    DEBUG = True
+    TESTING = True
+    CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL")
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+
+
+class StagingConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL")
+
+
+class TestingConfig(Config):
+    TESTING = True
+
+
+config = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+    'default': Config,
+    'testing': TestingConfig
+}

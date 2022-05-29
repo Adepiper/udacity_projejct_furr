@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------#
 # Imports
 #----------------------------------------------------------------------------#
-
+import os
 import json
 import dateutil.parser
 import babel
@@ -12,16 +12,21 @@ import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
+from config import config
+from flask_migrate import Migrate
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
 moment = Moment(app)
-app.config.from_object('config')
+app.config.from_object(config.get('default'))
 db = SQLAlchemy(app)
 
+migrate = Migrate(app, db)
+
 # TODO: connect to a local postgresql database
+# DONE: connect to a local postgresql database
 
 #----------------------------------------------------------------------------#
 # Models.
