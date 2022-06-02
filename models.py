@@ -12,7 +12,7 @@ migrate = Migrate(app, db)
 
 
 class Venue(db.Model):
-    __tablename__ = "Venue"
+    __tablename__ = "venues"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
@@ -78,7 +78,7 @@ class Venue(db.Model):
 
 
 class Artist(db.Model):
-    __tablename__ = "Artist"
+    __tablename__ = "artists"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
@@ -133,7 +133,7 @@ class Artist(db.Model):
 
 
 class Show(db.Model):
-    __table_name__ = "Show"
+    __table_name__ = "shows"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     artist_id = db.Column(db.Integer, db.ForeignKey("Artist.id"), nullable=False)
@@ -190,32 +190,40 @@ def get_shows_by_venue_id_and_artist_id(venue_id, artist_id):
 
 def get_upcoming_venue_shows(venue_id):
     return (
-        Show.query.filter(Show.start_time > datetime.now())
-        .filter_by(venue_id=venue_id)
-        .all()
-    )
-
-
-def get_upcoming_artist_shows(artist_id):
-    return (
-        Show.query.filter(Show.start_time > datetime.now())
-        .filter_by(artist_id=artist_id)
+        db.session.query(Show)
+        .join(Artist)
+        .filter(Show.venue_id == venue_id)
+        .filter(Show.start_time > datetime.now())
         .all()
     )
 
 
 def get_past_venue_shows(venue_id):
     return (
-        Show.query.filter(Show.start_time < datetime.now())
-        .filter_by(venue_id=venue_id)
+        db.session.query(Show)
+        .join(Artist)
+        .filter(Show.venue_id == venue_id)
+        .filter(Show.start_time < datetime.now())
+        .all()
+    )
+
+
+def get_upcoming_artist_shows(artist_id):
+    return (
+        db.session.query(Show)
+        .join(Venue)
+        .filter(Show.artist_id == artist_id)
+        .filter(Show.start_time > datetime.now())
         .all()
     )
 
 
 def get_past_artist_shows(artist_id):
     return (
-        Show.query.filter(Show.start_time < datetime.now())
-        .filter_by(artist_id=artist_id)
+        db.session.query(Show)
+        .join(Venue)
+        .filter(Show.artist_id == artist_id)
+        .filter(Show.start_time < datetime.now())
         .all()
     )
 
