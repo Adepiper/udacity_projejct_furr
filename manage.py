@@ -5,12 +5,12 @@ from config import config
 
 from app import app, db
 
-app.config.from_object(config.get('default'))
+app.config.from_object(config.get("default"))
 
 migrate = Migrate(app, db)
 manager = Manager(app)
 
-manager.add_command('db', MigrateCommand)
+manager.add_command("db", MigrateCommand)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     manager.run()

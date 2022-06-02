@@ -1,5 +1,7 @@
 {
-	"editor.defaultFormatter": "ms-python.vscode-pylance",
+	"editor.defaultFormatter": null,
 	"editor.formatOnPaste": true,
-	"editor.formatOnSave": true
+	"editor.formatOnSave": true,
+	"python.formatting.provider": "black",
+	"editor.tabSize": 2
 }

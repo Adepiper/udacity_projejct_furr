@@ -1,4 +1,5 @@
 import os
+
 SECRET_KEY = os.urandom(32)
 # Grabs the folder where the script runs.
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -17,7 +18,7 @@ class Config(object):
     DEBUG = True
     TESTING = True
     CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI")
 
 
 class ProductionConfig(Config):
@@ -32,7 +33,7 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI")
 
 
 class TestingConfig(Config):
@@ -40,8 +41,8 @@ class TestingConfig(Config):
 
 
 config = {
-    'development': DevelopmentConfig,
-    'production': ProductionConfig,
-    'default': Config,
-    'testing': TestingConfig
+    "development": DevelopmentConfig,
+    "production": ProductionConfig,
+    "default": Config,
+    "testing": TestingConfig,
 }
