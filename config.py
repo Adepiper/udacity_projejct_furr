@@ -17,7 +17,7 @@ class Config(object):
     DEBUG = True
     TESTING = True
     CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URI")
 
 
 class ProductionConfig(Config):
@@ -32,7 +32,7 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URI")
 
 
 class TestingConfig(Config):
